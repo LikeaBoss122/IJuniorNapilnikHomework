@@ -1,39 +1,39 @@
-﻿class Weapon
-    {
-        private int Damage;
-        readonly int Bullets;
+class Weapon
+{
+    private int _damage;
+    readonly int Bullets;
 
-        public bool TryFire(Player player)
+    public bool TryFire(Player player)
+    {
+        if (Bullets > 0)
         {
-            if (Bullets > 0)
-            {
-                player.GetDamage(Damage);
-                Bullets -= 1;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            player.GetDamage(_damage);
+            Bullets -= 1;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
+}    
 
-    class Player
+class Player
+{
+    readonly int Health;
+
+    public void GetDamage(int Damage)
     {
-        readonly int Health;
-
-        public void GetDamage(int Damage)
-        {
-            Health -= Damage;
-        }
+        Health -= Damage;
     }
+}
 
-    class Bot
+class Bot
+{
+    private Weapon _weapon;
+
+    public void OnSeePlayer(Player player)
     {
-        private Weapon Weapon;
-
-        public void OnSeePlayer(Player player)
-        {
-            Weapon.TryFire(player);
-        }
+            _weapon.TryFire(player);
     }
+}
