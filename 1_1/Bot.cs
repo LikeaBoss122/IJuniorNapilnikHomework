@@ -4,28 +4,18 @@ class Bot
 
     public Bot(Weapon weapon)
     {
-        if(_weapon != null)
-        {
-            _weapon = weapon;
-        }
-        else
-        {
-            throw new InvalidOperationException();
-        }
+        if(_weapon == null)
+            throw new InvalidOperationException()
+            
+        _weapon = weapon;
     }
 
     public void OnSeePlayer(Player player)
     {
-        if (player != null && _weapon != null)
-        {
-            if (!player.Dead)
-            {
-                _weapon.TryFire(player);
-            }
-        }
-        else
-        {
+        if (player == null)
             throw new InvalidOperationException();
-        }
+        
+        if (!player.Dead)
+            _weapon.TryFire(player);
     }
 }
