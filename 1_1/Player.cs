@@ -1,66 +1,35 @@
-class Weapon
-{
-    private int _damage;
-    private bool _enoughBullets => CurrentBulletsCount > 0;
-    private int _allBulletsCount => CurrentBulletsCount + MagazineBulletsCount;
-    public int CurrentBulletsCount { get; private set; }
-    public int MagazineBulletsCount { get; private set; }
-    private int _maxMagazineBullets;
-    private int _maxCurrentBullets;
-
-    public Weapon(int damageStart, int bulletsStartCount, int maxMagazineBullets, int maxCurrentBullets)
+class Player
     {
-        if (damageStart > 0 && bulletsStartCount >= 0)
-        {
-            _damage = damageStart;
-            _maxCurrentBullets = maxCurrentBullets;
-            _maxMagazineBullets = maxMagazineBullets;
-            CurrentBulletsCount = Math.Min(maxCurrentBullets, bulletsStartCount);
-            MagazineBulletsCount = maxCurrentBullets > bulletsStartCount ? 0 : bulletsStartCount - maxCurrentBullets;
-        }
-        else
-        {
-            throw new InvalidOperationException();
-        }
-    }
+        public int Health { get; private set; }
+        public bool Dead { get; private set; }
 
-    public bool TryFire(Player player)
-    {
-        if (player != null)
+        public Player(int health)
         {
-            if (_enoughBullets)
+            Health = health;
+        }
+
+        public void GetDamage(int damage)
+        {
+            if (damage > 0)
             {
-                player.GetDamage(_damage);
-                CurrentBulletsCount -= 1;
-                return true;
+                if (!Dead)
+                {
+                    Health -= damage;
+                    TryDeath();
+                }
             }
             else
             {
-                return false;
+                throw new InvalidOperationException();
             }
         }
-        else throw new InvalidOperationException();
-    }
 
-    private bool TryReload()
-    {
-        if (MagazineBulletsCount > 0 && CurrentBulletsCount != _maxCurrentBullets)
+        private void TryDeath()
         {
-            if (_maxCurrentBullets < _allBulletsCount)
+            if (Health <= 0)
             {
-                MagazineBulletsCount = _allBulletsCount - _maxCurrentBullets;
-                CurrentBulletsCount = _maxCurrentBullets;
+                Dead = true;
+                Health = 0;
             }
-            else
-            {
-                CurrentBulletsCount = _allBulletsCount;
-                MagazineBulletsCount = 0;
-            }
-            return true;
-        }
-        else
-        {
-            return false;
         }
     }
-}
