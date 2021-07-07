@@ -8,19 +8,15 @@ class Player
             Health = health;
         }
 
-        public void GetDamage(int damage)
+        public void TakeDamage(int damage)
         {
-            if (damage > 0)
-            {
-                if (!Dead)
-                {
-                    Health -= damage;
-                    TryDeath();
-                }
-            }
-            else
-            {
+            if (damage <= 0)
                 throw new InvalidOperationException();
+            
+            if (!Dead)
+            {
+                Health -= damage;
+                TryDeath();
             }
         }
 
