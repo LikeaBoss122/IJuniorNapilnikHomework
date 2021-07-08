@@ -1,12 +1,15 @@
 class Weapon
 {
     private int _damage;
-    private bool _enoughBullets => CurrentBulletsCount > 0;
-    private int _allBulletsCount => CurrentBulletsCount + MagazineBulletsCount;
+    
     public int CurrentBulletsCount { get; private set; }
     public int MagazineBulletsCount { get; private set; }
-    private int _maxMagazineBullets;
     private int _maxCurrentBullets;
+    private int _maxMagazineBullets;
+    
+    private int _allBulletsCount => CurrentBulletsCount + MagazineBulletsCount;
+    
+    private bool _enoughBullets => CurrentBulletsCount > 0;
 
     public Weapon(int damageStart, int bulletsStartCount, int maxMagazineBullets, int maxCurrentBullets)
     {
