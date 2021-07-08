@@ -1,7 +1,7 @@
 class Player
     {
         public int Health { get; private set; }
-        public bool Dead { get; private set; }
+        public bool Dead => Health <= 0;
 
         public Player(int health)
         {
@@ -16,15 +16,10 @@ class Player
             if (!Dead)
             {
                 Health -= damage;
-                TryDeath();
             }
-        }
-
-        private void TryDeath()
-        {
+            
             if (Health <= 0)
             {
-                Dead = true;
                 Health = 0;
             }
         }
