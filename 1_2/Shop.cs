@@ -1,17 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace _1_2.Homework
 {
     class Shop
     {
-        private Warehouse Warehouse;
-        private List<Cart> Carts;
+        private Warehouse _warehouse;
+        private List<Cart> _carts;
         
         public Cart Cart()
         {
-            Cart newCart = new Cart(Warehouse);
-            Carts.Add(newCart);
+            Cart newCart = new Cart(_warehouse);
+            _carts.Add(newCart);
             return newCart;
         }
 
@@ -20,8 +20,8 @@ namespace _1_2.Homework
             if (warehouse == null)
                 throw new InvalidOperationException();
 
-            Carts = new List<Cart>();
-            Warehouse = warehouse;
+            _carts = new List<Cart>();
+            _warehouse = warehouse;
         }
     }
 }
